@@ -1,0 +1,309 @@
+#bglogo {
+  
+  background-color: #ffd500;
+  border-radius: 0px;
+    
+}
+
+input[type=text]{
+	text-transform: uppercase;
+}
+
+.logo-cont{
+   /*  height: auto; 310px; */
+    vertical-align: central;
+}
+
+.logo-cont{
+    padding-top: 40%;
+}
+
+#bodyLogin{
+    /*background: rgba(73,165,191,1); */
+}
+
+#loginLogo {
+  
+  background-color: #fff;
+  border-radius: 0px;
+  
+    
+}
+
+#forgotPass{
+    color: #ffd500;
+    
+}
+
+
+.legend{
+    margin-left: 10px;
+}
+
+#form-login{
+    background: #191c20;
+}
+
+#form-login > h2 {
+    color: #9ba1a9;
+}
+
+#menu1{
+
+  background-color: #191c21;
+
+}
+
+.data-container{
+  background-color: #edeef2;
+}
+
+.data-container-desplegable{
+  background-color: #99B;
+  padding: 1px;
+  
+}
+
+.data-container-desplegable>div{
+  background-color: white;;
+  margin: 1px;
+}
+
+.desp{
+  color: white;
+  margin-left: 20px;
+}
+
+.main-title{
+  color: #9ba1a9;
+}
+
+.plegable{
+   height:0;
+   overflow:hidden;
+   overflow-y: scroll;
+}
+
+
+
+#first-plegable{
+	height: auto; 
+	padding: 0px 10px;
+   /*height: 620px;
+   max-height: 620px;*/ 
+}
+
+#adminConf{
+   height: 346px;
+   max-height: 346px; 
+}
+
+#second-plegable{
+   max-height: auto;/*160px;*/ 
+   padding: 0px 10px;
+}
+
+#third-plegable{
+    max-height: auto; /*235px;*/ 
+    padding: 0px 10px;
+}
+
+#last-plegable{
+   /*  max-height: 700px; */
+    padding: 0px 10px;
+    
+}
+
+#charge-desplegable{
+	height: 325px;
+}
+
+
+#tabla{
+    width: auto;
+    text-align: center;
+    font-size: 12px;
+    color: #8c8c8c;
+}
+
+.btn{
+  border-radius: 0px;
+}
+
+.form-control{
+  border-radius: 0px;
+}
+
+.btn-cancelar{
+  color: white;
+  background-color: #bbbbc7;
+}
+
+.btn-cancelar:hover{
+  background-color: gray;
+  color: white;
+}
+
+
+
+
+ #menuList {
+    padding: 0;
+    margin: 0;
+    border: 0; 
+}
+
+#menuList ul, li {
+    list-style: none;
+    margin: 0;
+    padding: 0; 
+}
+
+#menuList ul {
+      position: relative;
+      z-index: 597;
+      float: left;
+      
+}
+
+#menuList ul li {
+    float: left;
+    min-height: 1px;
+    line-height: 1em;
+    vertical-align: middle; 
+}
+
+#menuList ul li.hover,
+#menuList ul li:hover {
+  position: relative;
+  z-index: 599;
+  cursor: default; 
+}
+
+#menuList ul ul {
+  visibility: hidden;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 598;
+  width: 100%; 
+}
+
+#menuList ul ul li {
+  float: none; 
+}
+
+#menuList ul li:hover > ul {
+  visibility: visible; 
+}
+
+#menuList ul ul {
+  top: 0;
+  left: 100%; 
+}
+
+#menuList ul li {
+  float: none; 
+}
+
+#menuList {
+  padding: 0;
+}
+
+#menuList span, #menuList a {
+    display: inline-block;
+    
+    font-size: 14px;
+    text-decoration: none; 
+}
+
+#menuList:after, #menuList ul:after {
+    content: '';
+    display: block;
+    clear: both; 
+}
+
+#menuList ul, #menuList li {
+    width: 100%; 
+}
+#menuList li {
+    background: #191c21;
+    padding: 12px 0;
+    padding-left: 20px;
+    color: #676c74;
+    font-size: 14px;
+    line-height: 18px;
+    display: inline-block;
+    vertical-align: middle;
+    transition: color 0.4s ease-in-out;
+    text-decoration: none;
+    
+    text-align: left;
+}
+#menuList li:hover {
+    background: #337ab7;
+    
+}
+
+#menuList li:hover a{
+    color: white;
+    
+    
+}
+
+#menuList li:hover>a{
+    color: white;
+    transition: color 0.4s ease-in-out;
+    
+}
+
+#menuList a {
+    color: #666666;
+    line-height: 160%;
+    padding: 4px 28px 4px 28px;
+    width: 100%; 
+}
+#menuList ul ul li {
+    background: #337ab7; 
+}
+#menuList ul ul li:hover {
+    background: #2b97f3; 
+}
+#menuList ul ul li:hover a {
+    color: white; 
+}
+#menuList ul ul li ul li {
+    background: #337ab7; 
+}
+#menuList ul ul li ul li:hover {
+    background: #2b97f3; 
+}
+#menuList .has-sub {
+    position: relative; 
+}
+
+#menuList .has-sub:after, #menuList .has-sub > ul > .has-sub:hover:after {
+    content: '';
+    display: block;
+    width: 10px;
+    height: 9px;
+    position: absolute;
+    right: 5px;
+    top: 50%;
+    margin-top: -5px;
+    background-image: url(right.png);
+}
+#menuList .has-sub > ul > .has-sub:after, #menuList .has-sub:hover:after {
+    background-image: url(right.png); 
+}
+
+#report-list li a{
+    font-size: 12px;
+    padding: 2px 20px 2px 20px;
+}
+
+.invalid{
+	color:red;
+}
+
+

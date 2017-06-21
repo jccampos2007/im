@@ -1,0 +1,21 @@
+delete from request.request_upplementary;
+delete from request.request_attached;
+delete from request.request_requisite;
+delete from request.request_payment;
+delete from request.request_owner;
+delete from request.request_attached;
+delete from request.request_regulation;
+delete from request.request_comment;
+delete from request.request;
+delete from request.tracing;
+delete from request.owner WHERE id_owner >= 9;
+
+ALTER SEQUENCE request.request_upplementary_id_request_upplementary_seq RESTART WITH 1;
+ALTER SEQUENCE request.request_attached_id_request_attached_seq RESTART WITH 1;
+ALTER SEQUENCE request.request_requisite_id_request_requisite_seq RESTART WITH 1;
+ALTER SEQUENCE request.request_payment_id_request_payment_seq RESTART WITH 1;
+ALTER SEQUENCE request.request_owner_id_request_owner_seq RESTART WITH 1;
+ALTER SEQUENCE request.request_id_request_seq RESTART WITH 1;
+ALTER SEQUENCE request.request_attached_id_request_attached_seq RESTART WITH 1;
+ALTER SEQUENCE request.tracing_id_tracing_seq RESTART WITH 1;
+ALTER SEQUENCE request.owner_id_owner_seq RESTART WITH 9;

@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+"http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+<tiles-definitions>
+
+	<definition extends="default" name="mainMenu">
+		<put-attribute name="body" value="/WEB-INF/views/mainMenu.jsp" />
+	</definition>
+
+	<definition extends="default" name="recorderVUF">
+		<put-attribute name="body" value="/WEB-INF/views/requestVUF/recorder.jsp" />
+	</definition>
+
+	<definition extends="default" name="supervisorVUF">
+		<put-attribute name="body" value="/WEB-INF/views/requestVUF/supervisor.jsp" />
+	</definition>
+
+	<definition extends="default" name="technicalVUF">
+		<put-attribute name="body" value="/WEB-INF/views/requestVUF/technical.jsp" />
+	</definition>
+
+	<definition extends="default" name="supervisorApprovalVUF">
+		<put-attribute name="body" value="/WEB-INF/views/requestVUF/supervisorApproval.jsp" />
+	</definition>
+
+	<definition extends="default" name="managerApprovalVUF">
+		<put-attribute name="body" value="/WEB-INF/views/requestVUF/managerApproval.jsp" />
+	</definition>
+
+	<definition extends="default" name="deliveryVUF">
+		<put-attribute name="body" value="/WEB-INF/views/requestVUF/delivery.jsp" />
+	</definition>
+	
+	<definition extends="default" name="recorderVUE">
+		<put-attribute name="body" value="/WEB-INF/views/requestVUE/recorder.jsp" />
+	</definition>
+
+	<definition extends="default" name="supervisorVUE">
+		<put-attribute name="body" value="/WEB-INF/views/requestVUE/supervisor.jsp" />
+	</definition>
+
+	<definition extends="default" name="technicalVUE">
+		<put-attribute name="body" value="/WEB-INF/views/requestVUE/technical.jsp" />
+	</definition>
+
+	<definition extends="default" name="supervisorApprovalVUE">
+		<put-attribute name="body" value="/WEB-INF/views/requestVUE/supervisorApproval.jsp" />
+	</definition>
+
+	<definition extends="default" name="managerApprovalVUE">
+		<put-attribute name="body" value="/WEB-INF/views/requestVUE/managerApproval.jsp" />
+	</definition>
+
+	<definition extends="default" name="deliveryVUE">
+		<put-attribute name="body" value="/WEB-INF/views/requestVUE/delivery.jsp" />
+	</definition>
+
+	<!-- login -->
+	<definition extends="login" name="home">
+		<put-attribute name="body" value="/WEB-INF/views/home.jsp" />
+	</definition>
+	<definition extends="login" name="forgot">
+		<put-attribute name="body" value="/WEB-INF/views/forgot.jsp" />
+	</definition>
+	<definition extends="login" name="sessiontimeout">
+		<put-attribute name="body" value="/WEB-INF/views/sessiontimeout.jsp" />
+	</definition>
+	
+</tiles-definitions>
