@@ -186,7 +186,7 @@
 							  <tbody>
 							    <tr>
 							        <th scope="row">Solicitud de consulta preliminar</th>
-							        <th><input type="radio" value="yes" radio /></th>
+							        <th><input type="radio" value="yes" name="select1" /></th>
 									<th><input type="radio" value="no" name="select1" /></th>
 									<th><input type="radio" value="does_not_apply" name="select1" /></th>
 							    </tr>

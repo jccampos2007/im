@@ -846,7 +846,7 @@ public class requestController {
 	     	            + "proc_stmt" + proc_stmt.toString());
 				
 				ResultSet rs =proc_stmt.executeQuery("SELECT * FROM payment " +
-	                     " WHERE reference_code = '"+reference_code+"'  and  payment.status= 1");             
+	                     " WHERE reference_code = '"+reference_code.toUpperCase()+"'  and  payment.status= 1");             
 	             
 	             while (rs.next()){                 
 	            	 payment.setId(rs.getInt("id"));
