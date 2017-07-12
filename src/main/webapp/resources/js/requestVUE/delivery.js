@@ -310,7 +310,8 @@ $(document).ready(function(){
 					    	$('#divVUEDelBanlance').hide();
 					    	
 					    	
-					    	var url = "/VUF/print/VUFR1/" + $('#inputVUEDelIdRequest').val();
+					    	/*DEFINIR ADELVIS
+					    	 * var url = "/VUF/print/" + $('#inputVUEDelIdRequest').val();
 					    	
 							$.ajax({
 							   url: url,
@@ -329,7 +330,7 @@ $(document).ready(function(){
 						    		window.open(href, '_blank', '', true);
 							   },
 								type: 'GET'
-							});
+							});*/
 
 					    },
 					    type: 'POST'
@@ -353,7 +354,7 @@ $(document).ready(function(){
 	function findFilesSA(callback){
 		var url = "/printer/excel/" 
 			+ $('#inputVUEDelIdRequest').val() + "/"
-			+ $('#inputVUEDelIdOrdinance').val() + "/query";
+			+ $('#inputVUEDelIdOrdinance').val() + "/2/query";
 	
 		$.ajax({
 		   url: url,

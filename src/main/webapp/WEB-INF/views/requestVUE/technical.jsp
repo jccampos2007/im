@@ -117,8 +117,11 @@
                         </div>
                         <div class="form-group col-sm-4">
                             <label for="inputVUETecDateRequest" class="text-muted"><spring:message code="RequestVUF.lbl.dateRequest" text="Fecha Solicitud"/></label>
-                            <input class="form-control" id="inputVUETecDateRequest" name="inputVUETecDateRequest" type="text" required
-                            placeholder="DD/MM/AAAA">
+                            <div class="input-group date form_date col-md-5" data-date="" data-date-format="dd/mm/yyyy" data-link-field="dtp_input1" style="width: 100%">
+								<input id="inputVUETecDateRequest" class="form-control" size="16" type="text" value="" readonly required>
+								<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+								<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+				            </div>
                         </div>
                         <div class="form-group col-sm-4">
                         	<label for="selTecIdTypeUse" class="text-muted"><spring:message code="RequestVUF.lbl.typeUse" text="Uso Presentado"/></label>
@@ -356,7 +359,7 @@
 				                    <input id="requestRequisite28" type="hidden"></th>
 				                    <th><input type="radio" value="yes" name="select28" /></th>
 				                    <th><input type="radio" value="no" name="select28" /></th>
-				                    <th><input type="radio" value="does_not_apply" name="selec28" /></th>
+				                    <th><input type="radio" value="does_not_apply" name="select28" /></th>
 				                    <th><input type="radio" value="pending" name="select28" /></th>
 				                  </tr>
 				                  <tr id="29" class="requisite">
@@ -364,7 +367,7 @@
 				                    <input id="requestRequisite29" type="hidden"></th>
 				                    <th><input type="radio" value="yes" name="select29" /></th>
 				                    <th><input type="radio" value="no" name="select29" /></th>
-				                    <th><input type="radio" value="does_not_apply" name="selec29" /></th>
+				                    <th><input type="radio" value="does_not_apply" name="select29" /></th>
 				                    <th><input type="radio" value="pending" name="select29" /></th>
 				                  </tr>
                                 <tr id="30" class="requisite">
@@ -466,7 +469,7 @@
                    	<div class="row">                   		
                         
 						<div class=" col-sm-3">
-                        	<label id=" btnVUETecDownloadExcel" class="btn btn-default" ><spring:message code="btn.excel" text="Excel"/></label>
+                        	<label id="btnVUETecDownloadExcel" class="btn btn-default" ><spring:message code="btn.excel" text="Excel"/></label>
 						</div>
                         <div class="col-sm-6">
 				            <div class="input-group">
@@ -489,7 +492,7 @@
 					<div class="row">
 				        <div class="form-group col-sm-12">
 				        	<input type="radio" value="0" id="radioNotice" name="notice" />
-							<label for="radioNotice" id="btnVUETecNotice">Oficio Pendiente</label>
+							<label for="radioNotice" id="btnVUETecNotice">Sin Oficio Motivado / Pendiente</label>
 				        	<input type="radio" value="1" id="radioNoticeMotivated" name="notice" />
 				        	<label for="radioNoticeMotivated" id="btnVUETecNoticeMotivated">Oficio Motivado</label>
 				        	<input type="radio" value="2" id="radioNoticePending" name="notice" />		              		
@@ -514,8 +517,8 @@
 					        <div class="clearfix"></div>
 				        </div>
 				        <div class="form-group col-sm-4">
-		              		<label for="inputTecVUESectionZoning" class="text-muted"><spring:message code="RequestVUF.lbl.responsable" text="Sector:"/></label>
-			              	<input class="form-control" name="inputTecVUESectionZoning" id="inputTecVUESectionZoning" type="text" required>
+		              		<label for="inputTecVUENameZoning" class="text-muted"><spring:message code="RequestVUF.lbl.responsableId" text="Nombre Zonificación:" /></label>
+			              	<input class="form-control" name="inputTecVUENameZoning" id="inputTecVUENameZoning" type="text" required>
 				        </div>
 				        <div class="form-group col-sm-4">
 		              		<label for="inputTecVUENumberGacetaZoning" class="text-muted"><spring:message code="RequestVUF.lbl.responsable" text="N° de Gaceta:"/></label>
@@ -523,36 +526,38 @@
 				        </div>
 				        <div class="form-group col-sm-4">
 		              		<label for="inputTecVUEDateGacetaZoning" class="text-muted"><spring:message code="RequestVUF.lbl.responsableId" text="Fecha de Gaceta:" /></label>
-			              	<input class="form-control" name="inputTecVUEDateGacetaZoning" id="inputTecVUEDateGacetaZoning" type="text" required>
+			              	<div class="input-group date form_date col-md-5" data-date="" data-date-format="dd/mm/yyyy" data-link-field="dtp_input1" style="width: 100%">
+								<input id="inputTecVUEDateGacetaZoning" class="form-control" size="16" type="text" value="" readonly required>
+								<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+								<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+				            </div>
 				        </div>
 				        <div class="form-group col-sm-12">
-		              		<label for="inputTecVUENameZoning" class="text-muted"><spring:message code="RequestVUF.lbl.responsableId" text="Nombre Zonificación:" /></label>
-			              	<input class="form-control" name="inputTecVUENameZoning" id="inputTecVUENameZoning" type="text" required>
+		              		<label for="inputTecVUESectionZoning" class="text-muted"><spring:message code="RequestVUF.lbl.responsable" text="Sector:"/></label>
+			              	<input class="form-control" name="inputTecVUESectionZoning" id="inputTecVUESectionZoning" type="text" required>
 				        </div>
 				        <div class="form-group col-sm-12">
 		              		<label for="inputTecVUEDescriptionParcel" class="text-muted"><spring:message code="RequestVUF.lbl.responsableId" text="Caracteristica Parcela:" /></label>
-			              	<input class="form-control" name="inputTecVUEDescriptionParcel" id="inputTecVUEDescriptionParcel" type="text" required>
+			              	<textarea class="form-control vn" name="inputTecVUEDescriptionParcel" id="inputTecVUEDescriptionParcel" rows="" cols="" style="" required></textarea>
 				        </div>
 				        <div class="form-group col-sm-12">
-		              		<p id="pTecVUEPreview">La parcela se encuentra zonificada como {nombre_zonificacion} de conformidad con lo señalado en el plano anexo a la Ordenanza de Zonificación para el Sector {sector}, N° {nro_gaceta} Extraordinario, publicada en Gaceta Municipal en fecha {fecha_gaceta}. De igual manera, la referida parcela presenta {caracteristica_parcela}.</p>
+		              		<div class="well">
+                                  <p id="pTecVUEPreview">La parcela se encuentra zonificada como <strong>{nombre_zonificacion}</strong> de conformidad con lo señalado en el plano anexo a la Ordenanza de Zonificación para el Sector <strong>{sector}</strong>, N° <strong>{nro_gaceta}</strong> Extraordinario, publicada en Gaceta Municipal en fecha <strong>{fecha_gaceta}</strong>. De igual manera, la referida parcela presenta <strong>{caracteristica_parcela}</strong>.</p>
+                            </div>
 				        </div>
 				        
 				        <div class="x_title  col-sm-12">
-					        <h2><spring:message code="requestVUF.tec.panel.titleControlReport" text="Datos de Variables del numeral"/></h2>
+					        <h2><spring:message code="requestVUF.tec.panel.titleControlReport" text="Datos de Variables Urbanas establecida"/></h2>
 					        <div class="clearfix"></div>
 				        </div>
-				        <div class="form-group col-sm-4">
-		              		<label for="selTecVUFIdVariableNumeral" class="text-muted"><spring:message code="RequestVUF.lbl.responsable" text="Variable numeral:"/></label>
-			              	<select class="form-control" name="selTecVUFIdVariableNumeral" id="selTecVUFIdVariableNumeral">
+				        <div class="form-group col-sm-12">
+		              		<label for="selTecVUEIdVariableNumeral" class="text-muted"><spring:message code="RequestVUF.lbl.responsable" text="Variable numeral:"/></label>
+			              	<select class="form-control" name="selTecVUEIdVariableNumeral" id="selTecVUEIdVariableNumeral">
 								<c:forEach items="${variablesNumeral}" var="variableNumeral">
 									<option value="${variableNumeral.id_variable_numeral}">${variableNumeral.name_variable_numeral}</option>
 								</c:forEach>
 			              	</select>
                  		</div>
-				        <div class="form-group col-sm-8">
-		              		<label for="inputTecVUENameVariableRegulation" class="text-muted"><spring:message code="RequestVUF.lbl.responsable" text="Nombre variable reglamento:"/></label>
-			              	<input class="form-control vn" name="inputTecVUENameVariableRegulation" id="inputTecVUENameVariableRegulation" type="text" placeholder="Nombre variable reglamento" required>
-				        </div>
 				        <div class="form-group col-sm-12">
 		              		<label for="taTecVUECommentRequestVariable" class="text-muted"><spring:message code="RequestVUF.lbl.responsable" text="Comentario variable numeral:"/></label>
 			              	<textarea class="form-control vn" id="taTecVUECommentRequestVariable" rows="" cols=""style="width:100%;"></textarea>
@@ -561,26 +566,46 @@
 		              		<label for="inputTecVUEDateGacetaZoning" class="text-muted"><spring:message code="RequestVUF.lbl.responsableId" text="Conclusión variable numeral:" /></label>
 			              	<textarea class="form-control vn" id="taTecVUEConclusionRequestVariable" rows="" cols=""style="width:100%;"></textarea>
 				        </div>
-				        <div class="form-group col-sm-2">
-			              	<input class="form-control vn" name="inputTecVUEValueRegulation" id="inputTecVUEValueRegulation" type="text" placeholder="Reglamentación" required>
+				        
+				        
+				        <div class="form-group col-sm-3">
+		              		<label class="text-muted"><spring:message code="RequestVUF.lbl.responsableId" text="Variables Urbanas" /></label>
+				        </div>
+				        <div class="form-group col-sm-3">
+		              		<label class="text-muted"><spring:message code="RequestVUF.lbl.responsableId" text="Reglamentación" /></label>
+				        </div>
+				        <div class="form-group col-sm-3">
+		              		<label class="text-muted"><spring:message code="RequestVUF.lbl.responsableId" text="Presentado" /></label>
+				        </div>
+				        <div class="form-group col-sm-3">
+		              		<label class="text-muted"><spring:message code="RequestVUF.lbl.responsableId" text="Diferencia (Exceso/Déficit)" /></label>
+				        </div>
+				        
+				        
+				        
+				        <div class="form-group col-sm-3">
+		              		<input class="form-control vn" name="inputTecVUENameVariableRegulation" id="inputTecVUENameVariableRegulation" type="text" placeholder="Nombre variable reglamento" required>
 				        </div>
 				        <div class="form-group col-sm-1">
 			              	<input class="form-control vn" name="inputTecVUEPercentageRegulation" id="inputTecVUEPercentageRegulation" type="text" placeholder="%" required>
 				        </div>
 				        <div class="form-group col-sm-2">
-			              	<input class="form-control vn" name="inputTecVUEValuePresentee" id="inputTecVUEValuePresentee" type="text" placeholder="Presentado" required>
+			              	<input class="form-control vn" name="inputTecVUEValueRegulation" id="inputTecVUEValueRegulation" type="text" placeholder="Reglamentación" required>
 				        </div>
 				        <div class="form-group col-sm-1">
 			              	<input class="form-control vn" name="inputTecVUEPercentagePresentee" id="inputTecVUEPercentagePresentee" type="text" placeholder="%" required>
 				        </div>
 				        <div class="form-group col-sm-2">
-			              	<input class="form-control vn" name="inputTecVUEValueDifference" id="inputTecVUEValueDifference" type="text" placeholder="Diferencia" required>
+			              	<input class="form-control vn" name="inputTecVUEValuePresentee" id="inputTecVUEValuePresentee" type="text" placeholder="Presentado" required>
 				        </div>
 				        <div class="form-group col-sm-1">
-			              	<input class="form-control vn" name="inputTecVUEPercentageDifference" id="inputTecVUENameZoning" type="text"  placeholder="%" required>
+			              	<input class="form-control vn" name="inputTecVUEPercentageDifference" id="inputTecVUEPercentageDifference" type="text"  placeholder="%" required>
+				        </div>
+				        <div class="form-group col-sm-2">
+			              	<input class="form-control vn" name="inputTecVUEValueDifference" id="inputTecVUEValueDifference" type="text" placeholder="Diferencia" required>
 				        </div>
 				        <div class="form-group col-sm-3">
-                              <label id="btnTecVUEAddRequestVariableNumeral" class="form-control btn btn-primary">AGREGAR
+                              <label id="btnTecVUEAddRequestVariableNumeral" class="form-control btn btn-primary">Agregar Variable
                                   <i class="glyphicon glyphicon-plus" style="margin-left: 5px;"></i>
                               </label>                        	
 				        </div>
@@ -589,20 +614,25 @@
                         	<table id="tableTecVUERequestVariableNumeral" class="table">
 							  <thead>
 							    <tr>
-                                  <th>name_variable_numeral</th>
-							      <th>name_variable_regulation</th>
-							      <th>value_regulation</th>
-							      <th>value_presentee</th>
-							      <th>value_difference</th>
+                                  <th>Variable del numeral</th>
+							      <th>Variable urbana</th>
+							      <th>Reglamentación</th>
+							      <th>Presentado</th>
+							      <th>Diferencia</th>
 							      <th>ACCIONES</th>
 							    </tr>
 							  </thead>
 							  <tbody></tbody>
 							</table>
                         </div>
-				        <div class="form-group col-sm-12">
-                              <label id="btnTecVUEAddRequestNoticeMotive" class="form-control btn btn-primary">Guardar
+				        <div class="form-group col-sm-3">
+                              <label id="btnTecVUEAddRequestNoticeMotive" class="form-control btn btn-primary">Guardar Oficio
                                   <i class="glyphicon glyphicon-plus" style="margin-left: 5px;"></i>
+                              </label>                        	
+				        </div>
+				        <div class="form-group col-sm-3">
+                              <label id="btnTecVUEPrintRequestNoticeMotive" class="form-control btn btn-primary">Imprimir
+                                  <i class="glyphicon glyphicon-print" style="margin-left: 5px;"></i>
                               </label>                        	
 				        </div>
 				        
@@ -625,12 +655,12 @@
 					        <div class="clearfix"></div>
 				        </div>
 				        <div class="form-group col-sm-4">
-		              		<label for="inputTecVUENameZoningPending" class="text-muted"><spring:message code="RequestVUF.lbl.responsable" text="Sector:"/></label>
+		              		<label for="inputTecVUENameZoningPending" class="text-muted"><spring:message code="RequestVUF.lbl.responsable" text="Nombre Zonificación:"/></label>
 			              	<input class="form-control" name="inputTecVUENameZoningPending" id="inputTecVUENameZoningPending" type="text" required>
 				        </div>
 				        <div class="form-group col-sm-12">
-		              		<label for="inputTecVUEDescriptionPlane" class="text-muted"><spring:message code="RequestVUF.lbl.responsableId" text="Descripción:" /></label>
-			              	<input class="form-control" name="inputTecVUEDescriptionPlane" id="inputTecVUEDescriptionPlane" type="text" required>
+		              		<label for="inputTecVUEDescriptionPlane" class="text-muted"><spring:message code="RequestVUF.lbl.responsableId" text="Descripción de plano anexo:" /></label>
+			              	<textarea class="form-control vn" name="inputTecVUEDescriptionPlane" id="inputTecVUEDescriptionPlane" rows="" cols="" required></textarea>
 				        </div>
 				        <div class="form-group col-sm-4">
 		              		<label for="inputTecVUENoticeRequestPrevious" class="text-muted"><spring:message code="RequestVUF.lbl.responsable" text="N° Solicitud VUF:"/></label>
@@ -638,17 +668,25 @@
 				        </div>
 				        <div class="form-group col-sm-4">
 		              		<label for="inputTecVUEDateNoticeRequestPrevious" class="text-muted"><spring:message code="RequestVUF.lbl.responsable" text="Fecha Solicitud VUF:"/></label>
-			              	<input class="form-control" name="inputTecVUEDateNoticeRequestPrevious" id="inputTecVUEDateNoticeRequestPrevious" type="text" required>
+			              	<div class="input-group date form_date col-md-5" data-date="" data-date-format="dd/mm/yyyy" data-link-field="dtp_input1" style="width: 100%">
+								<input id="inputTecVUEDateNoticeRequestPrevious" class="form-control" size="16" type="text" value="" readonly required>
+								<span class="input-group-addon"><span class="glyphicon glyphicon-remove"></span></span>
+								<span class="input-group-addon"><span class="glyphicon glyphicon-th"></span></span>
+				            </div>
 				        </div>
 				        <div class="form-group col-sm-12">
-		              		<p id="pTecVUEPreview">La parcela se encuentra zonificada como {name_zoning}}de conformidad con lo señalado en el plano anexo a {description_plane}, debiendo regirse para su desarrollo por todas aquellas disposiciones que le sean aplicables de la ordenanza antes señalada. Presenta oficio {notice_request_previous} de fecha{date_notice_request_previous} referente a consulta preliminar de de variables Urbanas fundamentales emanado de la Dirección de Ingeniería y Planeamiento Urbano Local.</p>
+		              		<div class="well">
+                                  <p id="pTecVUEPreview">La parcela se encuentra zonificada como <strong>{Nombre Zonificación}</strong> de conformidad con lo señalado en el plano anexo a <strong>{descripción de Plano}</strong>,
+                                  debiendo regirse para su desarrollo por todas aquellas disposiciones que le sean aplicables de la ordenanza antes señalada. Presenta oficio <strong>{N° Solicitud VUF} </strong>
+                                  de fecha <strong>{Fecha Solicitud VUF}</strong> referente a consulta preliminar de de variables Urbanas fundamentales emanado de la Dirección de Ingeniería y Planeamiento Urbano Local.</p>
+                            </div>
 				        </div>
 				        <div class="form-group col-sm-12">
 		              		<label for="taTecVUEDescriptionObservationPending" class="text-muted"><spring:message code="RequestVUF.lbl.responsable" text="Observaciones:"/></label>
 			              	<textarea class="form-control vn" id="taTecVUEDescriptionObservationPending" rows="" cols=""style="width:100%;"></textarea>
 				        </div>
 				        <div class="form-group col-sm-3">
-                              <label id="btnTecVUEAddRequestObservationPending" class="form-control btn btn-primary">AGREGAR
+                              <label id="btnTecVUEAddRequestObservationPending" class="form-control btn btn-primary">Agregar Observación
                                   <i class="glyphicon glyphicon-plus" style="margin-left: 5px;"></i>
                               </label>                        	
 				        </div>
@@ -657,16 +695,21 @@
                         	<table id="tableTecVUERequestObservationPending" class="table">
 							  <thead>
 							    <tr>
-                                  <th>description_observation</th>
+                                  <th>Observaciones</th>
 							      <th>ACCIONES</th>
 							    </tr>
 							  </thead>
 							  <tbody></tbody>
 							</table>
                         </div>
-				        <div class="form-group col-sm-12">
-                              <label id="btnTecVUEAddRequestNoticePending" class="form-control btn btn-primary">Guardar
+				        <div class="form-group col-sm-3">
+                              <label id="btnTecVUEAddRequestNoticePending" class="form-control btn btn-primary">Guardar Oficio
                                   <i class="glyphicon glyphicon-plus" style="margin-left: 5px;"></i>
+                              </label>                        	
+				        </div>
+				        <div class="form-group col-sm-3">
+                              <label id="btnTecVUEPrintRequestNoticePending" class="form-control btn btn-primary">Imprimir
+                                  <i class="glyphicon glyphicon-print" style="margin-left: 5px;"></i>
                               </label>                        	
 				        </div>
 				        

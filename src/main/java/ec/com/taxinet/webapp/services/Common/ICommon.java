@@ -26,7 +26,7 @@ public interface ICommon {
 	
 	public zoneListDTO listZone(Integer id_zone);
 	
-	public printerExcelDTO printerExcel(Integer id_request);
+	public printerExcelDTO printerExcel(Integer id_request, Integer id_type_request);
 	
 	public deleteRequestOwnerDTO deleteRequestOwner(Integer id_request_owner);
 	

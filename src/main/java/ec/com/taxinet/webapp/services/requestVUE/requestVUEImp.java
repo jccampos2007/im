@@ -19,6 +19,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
 import ec.com.taxinet.webapp.dto.ResponseRequestListDTO;
+import ec.com.taxinet.webapp.dto.deleteRequestOwnerDTO;
 import ec.com.taxinet.webapp.dto.requestAttachedDTO;
 import ec.com.taxinet.webapp.dto.requestManagementDTO;
 import ec.com.taxinet.webapp.dto.requestNoticeMotiveManagementDTO;
@@ -51,6 +52,9 @@ public class requestVUEImp implements IRequestVUE{
 	
 	@Value("${END_POINT_NOTICEPENDING}")
 	private String end_point_NoticePendingManagement;
+	
+	@Value("${END_POINT_VARIABLENUMERALDELETE}")
+	private String end_point_variableNumeralDelete;
 	
 	@Override
 	public requestNoticeMotiveManagementDTO requestNoticeMotiveManagement(mngRequestNoticeMotive mngRequestNoticeMotiveFrom) {
@@ -92,6 +96,36 @@ public class requestVUEImp implements IRequestVUE{
 		}
 				
 		return rnmDTO;
+	}
+	
+	@Override
+	public deleteRequestOwnerDTO deleteVariableNumeral(Integer id_request_variable_numeral) {
+		
+		StringBuffer uri = new StringBuffer();
+		uri.append(host).append(end_point_variableNumeralDelete);
+		
+		Map<String, Integer> params = new HashMap<String, Integer>();
+		params.put("id_request_variable_numeral", id_request_variable_numeral);
+			
+		logger.info("\nuri="+uri.toString()
+				+ "\nid_request_variable_numeral="+id_request_variable_numeral);
+
+		RestTemplate restTemplate = new RestTemplate();
+		restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+		HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
+
+		deleteRequestOwnerDTO ownerList = null;	
+		try{			
+			ResponseEntity<deleteRequestOwnerDTO> response = restTemplate.exchange(uri.toString(), HttpMethod.GET, entity, deleteRequestOwnerDTO.class, params);
+			ownerList = response.getBody();
+		}catch(HttpClientErrorException e){
+			e.printStackTrace();
+		}
+				
+		return ownerList;
 	}
 	
 }

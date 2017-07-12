@@ -1,5 +1,6 @@
 package ec.com.taxinet.webapp.services.requestVUE;
 
+import ec.com.taxinet.webapp.dto.deleteRequestOwnerDTO;
 import ec.com.taxinet.webapp.dto.requestNoticeMotiveManagementDTO;
 import ec.com.taxinet.webapp.dto.requestNoticePendingManagementDTO;
 import ec.com.taxinet.webapp.form.model.RequestListForm.mngRequestNoticeMotive;
@@ -10,5 +11,7 @@ public interface IRequestVUE {
 	public requestNoticeMotiveManagementDTO requestNoticeMotiveManagement(mngRequestNoticeMotive mngRequestNoticeMotiveFrom);
 
 	public requestNoticePendingManagementDTO requestNoticePendingManagement(mngRequestNoticePending mngRequestNoticePendingFrom);
+	
+	public deleteRequestOwnerDTO deleteVariableNumeral(Integer id_request_variable_numeral);
 
 }

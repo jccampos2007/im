@@ -21,6 +21,17 @@ $(document).ready(function(){
 	$('#divNoticeMotivated').hide();
 	$('#divNoticePending').hide();
 	$('input:radio[name=notice][value=0]').attr('checked', true);
+	//defaultDate:dateNow
+	$('.form_date').datetimepicker({
+		startDate: '+0d',
+        weekStart: 1,
+        todayBtn:  1,
+		autoclose: 1,
+		todayHighlight: 1,
+		startView: 2,
+		minView: 2,
+		forceParse: 0
+    });
 	
 	var isPdf = function(name) {
 		//alert(name);
@@ -303,6 +314,91 @@ $(document).ready(function(){
 					$("#requestRequisite" + item.id_requisite).val(item.id_request_requisite);
 			    	
 			   }
+
+
+			   if (result.id_type_notice == '1'){
+				   
+				   var NoticeMotive = result.noticeMotiveList;
+				   var variableNumeralList = NoticeMotive.requestVar;
+				   $('#inputTecVUEAreaAccused').val(NoticeMotive.area_accused);
+				   $('#inputTecVUENameZoning').val(NoticeMotive.name_zoning);
+				   $('#inputTecVUENumberGacetaZoning').val(NoticeMotive.number_gaceta_zoning);
+				   $('#inputTecVUEDateGacetaZoning').val(NoticeMotive.format_date_gaceta_zoning);
+				   $('#inputTecVUESectionZoning').val(NoticeMotive.section_zoning);
+				   $('#inputTecVUEDescriptionParcel').val(NoticeMotive.description_parcel);
+				   $('#tableTecVUERequestVariableNumeral tbody').html();
+				   
+				   dataRequestVariableNumeral = [];
+				   $('#tableTecVUERequestVariableNumeral tbody').html('');
+				   for(var i =0;i < variableNumeralList.length;i++){
+					   
+						var item = variableNumeralList[i];	
+						var html = '<tr>'
+							 + '<th>'+item.id_variable_numeral+'</th>'
+							 + '<th>'+item.name_variable_regulation+'</th>'
+							 + '<th>'+item.percentage_regulation+'% '+item.value_regulation+'</th>'
+							 + '<th>'+item.percentage_presentee+'% '+item.value_presentee+'</th>'
+							 + '<th>'+item.percentage_difference+'% '+item.value_difference+'</th>'
+							 + '<th><a id="btnVUETecEditVariableNumeral" data-vn="'+item.id_request_variable_numeral+'" class="glyphicon glyphicon-edit text-info"></a> '
+							 +'<a id="btnVUETecDeleteVariableNumeral" data-vn="'+item.id_request_variable_numeral+'" class="glyphicon glyphicon-remove text-info"></a></th>'
+							 + '</tr>';
+						
+						$('#tableTecVUERequestVariableNumeral tbody').append(html);
+
+						dataRequestVariableNumeral.push({
+							id_request: result.id_request,
+				            id_variable_numeral: item.id_variable_numeral,
+				            id_request_variable_numeral: item.id_request_variable_numeral,
+				            name_variable_regulation: item.name_variable_regulation,
+				            comment_request_variable: item.comment_request_variable,
+				            conclusion_request_variable: item.conclusion_request_variable,
+				            value_regulation: item.value_regulation,
+				            percentage_regulation: item.percentage_regulation,
+				            value_presentee: item.value_presentee,
+				            percentage_presentee: item.percentage_presentee,
+				            value_difference: item.value_difference,
+				            percentage_difference: item.percentage_difference
+				        });
+				    	
+				   }				   
+				   $('#btnVUETecNoticeMotivated').click();
+				   
+			   }
+			   
+			   if (result.id_type_notice == '2'){
+				   
+				   var noticePending = result.noticePendingList;
+				   var observationPendingList = noticePending.responseRequestObsePendList;
+				   $('#inputTecVUEAreaAccusedPending').val(noticePending.area_accused);
+				   $('#inputTecVUENameZoningPending').val(noticePending.name_zoning);
+				   $('#inputTecVUEDescriptionPlane').val(noticePending.description_plane);
+				   $('#inputTecVUENoticeRequestPrevious').val(noticePending.notice_request_previous);
+				   $('#inputTecVUEDateNoticeRequestPrevious').val(noticePending.format_date_notice_request_previous);
+				   $('#tableTecVUERequestObservationPending tbody').html('');
+				   
+				   dataRequestObservationPending = [];
+				   $('#tableTecVUERequestObservationPending tbody').html('');
+				   for(var i =0;i < observationPendingList.length;i++){
+					   
+						var item = observationPendingList[i];
+						var html = '<tr>'
+							 + '<th>'+item.description_observation+'</th>'
+							 + '<th><a href="#" id="btnVUETecEditObservationPending" data-obs="'+item.id_request_observation_pending+'" class="glyphicon glyphicon-edit text-info"></a> '
+							 +'<a href="#" id="btnDeleteRequestOwner" data-obs="'+item.id_request_observation_pending+'" class="glyphicon glyphicon-remove text-info"></a></th>'
+							 + '</tr>';
+						
+						$('#tableTecVUERequestObservationPending tbody').append(html);
+						
+						dataRequestObservationPending.push({
+							id_request_observation_pending: item.id_request_observation_pending,
+							id_request:result.id_request,
+							description_observation: item.description_observation
+				        });
+				    	
+				   }
+				   $('#btnVUETecNoticePending').click();
+			   }
+			   
 			   $('#divTecControlReport').show();
 				
 		   },
@@ -310,6 +406,9 @@ $(document).ready(function(){
 		});
 
 	});
+	
+	
+	
 	
 	$( "#btnVUETecReview" ).click(function() {
 		
@@ -368,6 +467,8 @@ $(document).ready(function(){
 			dataRequest['date_payment'] = $('#inputVUETecDatePayment').val();
 			dataRequest['id_responsible_official'] = $('#inputVUETecIdResponsibleOfficial').val();
 			dataRequest['comment_requisite'] = $('#taTecCommentRequisite').val();
+			dataRequest['id_type_notice'] = $('input[name=notice]:checked').val();
+			dataRequest['id_request_parent'] = $('#inputVUEIdRequestParent').val();
 			
 			var id_owners = [];
 			$("#tableOwnerList tbody tr").each(function (index) {
@@ -455,31 +556,6 @@ $(document).ready(function(){
 		});
 		
 	});
-    
-    $('#btnTecDownload').on('click', function() {
-        
-    	var url = "/VUF/print/VUFR1/" + $('#inputVUETecIdRequest').val();
-	
-		$.ajax({
-		   url: url,
-		   data: {
-		      format: 'json'
-		   },
-		   error: function() {
-			   console.log('Ha ocurrido un error...');
-		   },
-		   dataType: 'json',
-		   success: function(data) {
-			   var href ="../file_request/" 
-					+ $('#inputVUETecIdRequest').val() + "/"
-					+ $('#inputVUETecNumberRequest').val() + "VUFTemp.pdf";
-					//link.click();
-			   window.open(href, '_blank', '', true);
-		   },
-			type: 'GET'
-		});
-        
-    });
     
     //Buscar archivos
 	function findFiles(typePrint, callback){
@@ -727,8 +803,9 @@ $(document).ready(function(){
 	
 	$('#btnTecVUEAddRequestVariableNumeral').on('click', function() {
 		dataRequestVariableNumeral.push({
-            id_request_notice_motive: 0,
-            id_request_variable_numeral: $('#selTecVUFIdVariableNumeral').val(),
+			id_request: $('#inputVUETecIdRequest').val(),
+            id_variable_numeral: $('#selTecVUEIdVariableNumeral').val(),
+            id_request_variable_numeral: 0,
             name_variable_regulation: $('#inputTecVUENameVariableRegulation').val(),
             comment_request_variable: $('#taTecVUECommentRequestVariable').val(),
             conclusion_request_variable: $('#taTecVUEConclusionRequestVariable').val(),
@@ -741,7 +818,7 @@ $(document).ready(function(){
         });
 		
 		var html = '<tr>'
-			 + '<th>'+$("#selTecVUFIdVariableNumeral option:selected").text()+'</th>'
+			 + '<th>'+$("#selTecVUEIdVariableNumeral option:selected").text()+'</th>'
 			 + '<th>'+$('#inputTecVUENameVariableRegulation').val()+'</th>'
 			 + '<th>'+$('#inputTecVUEValueRegulation').val()+'</th>'
 			 + '<th>'+$('#inputTecVUEValuePresentee').val()+'</th>'
@@ -753,7 +830,7 @@ $(document).ready(function(){
 		$('#tableTecVUERequestVariableNumeral tbody').append(html);
 
 		$('.vn:input').val('');
-		$('#selTecVUFIdVariableNumeral').val($("#selTecVUFIdVariableNumeral option:first").val());
+		$('#selTecVUEIdVariableNumeral').val($("#selTecVUEIdVariableNumeral option:first").val());
 		
     });
 	
@@ -779,8 +856,10 @@ $(document).ready(function(){
 	$('#btnTecVUEAddRequestNoticeMotive').on('click', function() {
 		
 		var url = "/VUE/NoticeMotive/";
+		var fecha = $('#inputTecVUEDateGacetaZoning').val();
+		var res = fecha.split(" ");
 		dataNoticeMotive['area_accused'] = $('#inputTecVUEAreaAccused').val();
-		dataNoticeMotive['date_gaceta_zoning'] = $('#inputTecVUEDateGacetaZoning').val();
+		dataNoticeMotive['date_gaceta_zoning'] = res[0];
 		dataNoticeMotive['description_parcel'] = $('#inputTecVUEDescriptionParcel').val();
 		dataNoticeMotive['id_request'] = $('#inputVUETecIdRequest').val();
 		dataNoticeMotive['id_request_notice_motive'] = 0;
@@ -817,8 +896,10 @@ $(document).ready(function(){
 	$('#btnTecVUEAddRequestNoticePending').on('click', function() {
 		
 		var url = "/VUE/NoticePending/";
+		var fecha = $('#inputTecVUEDateNoticeRequestPrevious').val();
+		var res = fecha.split(" ");
 		dataNoticePending['area_accused'] = $('#inputTecVUEAreaAccusedPending').val();
-		dataNoticePending['date_notice_request_previous'] = $('#inputTecVUEDateNoticeRequestPrevious').val();
+		dataNoticePending['date_notice_request_previous'] = res[0];
 		dataNoticePending['description_plane'] = $('#inputTecVUEDescriptionPlane').val();
 		dataNoticePending['id_request'] = $('#inputVUETecIdRequest').val();
 		dataNoticePending['id_request_notice_pending'] = 0;
@@ -864,19 +945,157 @@ $(document).ready(function(){
 		    dataType: 'json',
 		    success: function(data) {
 		    	var result = data.responseData[0];
-		    	$('#lblVUESuccessful').html("Solicitud valida");
-		    	$('#inputVUEIdRequestParent').val(result.id_request);
-		    	new PNotify({
-					title: 'Procesar Solicitud',
-					text: 'Se proceso la solicitud con exito.',
+		    	if(data.responseData.length > 0){
+		    		$('#lblVUESuccessful').html("Se encontro la solicitud de VUF");
+			    	$('#inputVUEIdRequestParent').val(result.id_request);
+			    	new PNotify({
+						title: 'Procesar Solicitud',
+						text: 'Se encontro la solicitud de VUF.',
+						type: 'success',
+						hide: true,
+						styling: 'bootstrap3',
+						icon: 'ui-icon ui-icon-mail-closed'
+					});
+		    	}else{
+		    		$('#lblVUESuccessful').html("No se encontro la solicitud VUF");
+			    	$('#inputVUEIdRequestParent').val(0);
+			    	new PNotify({
+						title: 'Procesar Solicitud',
+						text: 'No se encontro la solicitud VUF.',
+						type: 'notice',
+						hide: true,
+						styling: 'bootstrap3',
+						icon: 'ui-icon ui-icon-mail-closed'
+					});
+		    	}
+		    	
+		    },
+		    type: 'GET'
+		});
+	});
+	
+	$('#btnVUETecDownloadExcel').on('click', function() {
+		var url = "/printer/excel/"+$('#inputVUETecIdRequest').val()+"/"+$('#selIdOrdinance').val()+"/2/created";
+		$.ajax({
+			url: url,
+		    data: {
+		    	format: 'json'
+		    },
+		    error: function() {
+			   console.log('Ha ocurrido un error...');
+		    },
+		    dataType: 'json',
+		    success: function(data) {
+		    	var href ="../file_request/" 
+		    		+ $('#inputVUETecIdRequest').val() + "/"
+		    		+ $('#inputVUETecNumberRequest').val() + "_"
+		    		+ data.name_file;
+		    		//link.click();
+	    		window.open(href, '_blank', '', true);
+		    },
+		    type: 'GET'
+		});
+	});
+	
+	$('#btnTecVUEPrintRequestNoticeMotive').on('click', function() {
+		var url = "/VUE/print/noticeMotive/"+ $('#inputVUETecIdRequest').val() + "/";
+		$.ajax({
+		   url: url,
+		   data: {
+		      format: 'json'
+		   },
+		   error: function() {
+			   console.log('Ha ocurrido un error...');
+		   },
+		   dataType: 'json',
+		   success: function(data) {
+			   var href ="../file_request/" 
+					+ $('#inputVUETecIdRequest').val() + "/"
+					+ $('#inputVUETecNumberRequest').val() + "NMVUETemp.pdf";
+					//link.click();
+			   window.open(href, '_blank', '', true);
+		   },
+			type: 'GET'
+		});
+	});
+	
+	$('#btnTecVUEPrintRequestNoticePending').on('click', function() {
+		var url = "/VUE/print/noticePending/"+ $('#inputVUETecIdRequest').val() + "/";
+		$.ajax({
+		   url: url,
+		   data: {
+		      format: 'json'
+		   },
+		   error: function() {
+			   console.log('Ha ocurrido un error...');
+		   },
+		   dataType: 'json',
+		   success: function(data) {
+			   var href ="../file_request/" 
+					+ $('#inputVUETecIdRequest').val() + "/"
+					+ $('#inputVUETecNumberRequest').val() + "NPVUETemp.pdf";
+					//link.click();
+			   window.open(href, '_blank', '', true);
+		   },
+			type: 'GET'
+		});
+	});
+	
+	
+
+
+	$('#tableTecVUERequestVariableNumeral tbody').on( 'click','#btnVUETecEditVariableNumeral',function (e) {
+		
+		var option = $(this).data('vn');
+		
+		for(var i =0;i < dataRequestVariableNumeral.length;i++){
+
+			var item = dataRequestVariableNumeral[i];
+			if(item.id_request_variable_numeral){
+				
+			}
+			$('#selTecVUEIdVariableNumeral').val(item.id_variable_numeral)
+			$('#taTecVUECommentRequestVariable').val(item.comment_request_variable)
+			$('#taTecVUEConclusionRequestVariable').val(item.conclusion_request_variable)
+			$('#inputTecVUENameVariableRegulation').val(item.name_variable_regulation)
+			$('#inputTecVUEPercentageRegulation').val(item.percentage_regulation);
+			$('#inputTecVUEValueRegulation').val(item.value_regulation);
+			$('#inputTecVUEPercentagePresentee').val(item.percentage_presentee);
+			$('#inputTecVUEValuePresentee').val(item.value_presentee);
+			$('#inputTecVUEPercentageDifference').val(item.percentage_difference);
+			$('#inputTecVUEValueDifference').val(item.value_difference);
+	    	
+	   }
+	});
+
+	$('#tableTecVUERequestVariableNumeral tbody').on( 'click','#btnVUETecDeleteVariableNumeral',function (e) {
+		
+		var url = "/VUE/delete/deleteVariableNumeral/"+ $(this).data('vn') + "/";
+		$.get(url, function(data, status){
+			if(data.responseCode == 200 && data.errorCode == 0){
+				var response = data.responseData[0];
+				new PNotify({
+					title: 'Variable Numeral',
+					text: 'Se elimino la variable corectamente.',
 					type: 'success',
 					hide: true,
 					styling: 'bootstrap3',
 					icon: 'ui-icon ui-icon-mail-closed'
 				});
-		    },
-		    type: 'GET'
-		});
+				$(this).parents('tr').first().remove();
+			}else{
+				$(".inputOwner").prop('disabled', false);
+				new PNotify({
+					title: 'Variable Numeral',
+					text: 'No se elimino la variable corectamente.',
+					type: 'error',
+					hide: true,
+					styling: 'bootstrap3',
+					icon: 'ui-icon ui-icon-mail-closed'
+				});
+			}
+	    });
+		
 	});
 	
 });

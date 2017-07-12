@@ -18,7 +18,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.RestTemplate;
 
+import ec.com.taxinet.webapp.dto.ResponseNoticeMotiveListDTO;
+import ec.com.taxinet.webapp.dto.ResponseNoticePendingListDTO;
 import ec.com.taxinet.webapp.dto.ResponseRequestListDTO;
+import ec.com.taxinet.webapp.dto.deleteRequestOwnerDTO;
 import ec.com.taxinet.webapp.dto.requestAttachedDTO;
 import ec.com.taxinet.webapp.dto.requestManagementDTO;
 import ec.com.taxinet.webapp.dto.tracingManagementDTO;
@@ -49,6 +52,12 @@ public class requestVUFImp implements IRequestVUF{
 	
 	@Value("${END_POINT_REQUESTATTACHED}")
 	private String end_point_requestAttached;
+	
+	@Value("${END_POINT_NOTICEMOTIVELIST}")
+	private String end_point_noticeMotiveList;
+	
+	@Value("${END_POINT_NOTICEPENDINGLIST}")
+	private String end_point_noticePendingList;
 	
 	public requestVUFImp(){
 		
@@ -190,6 +199,74 @@ public class requestVUFImp implements IRequestVUF{
 			ResponseEntity<ResponseRequestListDTO> response = restTemplate.exchange(uri.toString(), HttpMethod.GET, entity, ResponseRequestListDTO.class, params);
 			requestList = response.getBody();
 			logger.info("\n requestList response.getBody() = "+ response.getBody().toString());
+		}catch(HttpClientErrorException e){
+			e.printStackTrace();
+		}
+		
+		return requestList;
+	}
+
+	@Override
+	public ResponseNoticeMotiveListDTO listNoticeMotive(int id_request) {
+				
+		//
+		StringBuffer uri = new StringBuffer();
+		uri.append(host).append(end_point_noticeMotiveList);
+		
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("id_request", Integer.toString(id_request));
+		
+		logger.info("\n listNoticeMotive "
+			+"\nuri = "+ uri.toString()
+			+"\nid_request = "+id_request
+		);
+		
+		RestTemplate restTemplate = new RestTemplate();
+		restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+		HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
+		
+		ResponseNoticeMotiveListDTO requestList = null;		
+		try{			
+			ResponseEntity<ResponseNoticeMotiveListDTO> response = restTemplate.exchange(uri.toString(), HttpMethod.GET, entity, ResponseNoticeMotiveListDTO.class, params);
+			requestList = response.getBody();
+			logger.info("\n listNoticeMotive response.getBody() = "+ response.getBody().toString());
+		}catch(HttpClientErrorException e){
+			e.printStackTrace();
+		}
+		
+		return requestList;
+	}
+
+	@Override
+	public ResponseNoticePendingListDTO listNoticePending(int id_request) {
+				
+		//
+		StringBuffer uri = new StringBuffer();
+		uri.append(host).append(end_point_noticePendingList);
+		
+		Map<String, String> params = new HashMap<String, String>();
+		params.put("id_request", Integer.toString(id_request));
+		
+		logger.info("\n listNoticeMotive "
+			+"\nuri = "+ uri.toString()
+			+"\nid_request = "+id_request
+		);
+		
+		RestTemplate restTemplate = new RestTemplate();
+		restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+		HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
+		
+		ResponseNoticePendingListDTO requestList = null;		
+		try{			
+			ResponseEntity<ResponseNoticePendingListDTO> response = restTemplate.exchange(uri.toString(), HttpMethod.GET, entity, ResponseNoticePendingListDTO.class, params);
+			requestList = response.getBody();
+			logger.info("\n listNoticeMotive response.getBody() = "+ response.getBody().toString());
 		}catch(HttpClientErrorException e){
 			e.printStackTrace();
 		}

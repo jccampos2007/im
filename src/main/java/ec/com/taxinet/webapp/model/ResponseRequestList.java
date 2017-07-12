@@ -48,8 +48,12 @@ public class ResponseRequestList implements Serializable {
 	private String date_delivery;
 	private Integer id_zone;
 	private Integer id_ordinance;
+	private Integer id_request_parent;
+	private Integer id_type_notice;
+	private Integer id_sub_type_request;
 	private String format_date_payment;
 	private String format_date_notice_catastro;
+	private String numberRequestParent;
 	
 	private List<RequestOwnerList> requestOwnerList;
 	private List<RequestRequisiteList> requestRequisiteList;
@@ -57,6 +61,8 @@ public class ResponseRequestList implements Serializable {
 	private List<ResponseRequestPaymentList> responseRequestPaymentList;
 	private RequestUpplementaryList requestUpplementaryList;
 	private List<RequestCommentList> requestCommentList;
+	private NoticeMotiveList noticeMotiveList;
+	private NoticePendingList noticePendingList;
 	
 	public Integer getId_request() {
 		return id_request;
@@ -330,6 +336,54 @@ public class ResponseRequestList implements Serializable {
 		this.requestCommentList = requestCommentList;
 	}
 	
+	public Integer getId_request_parent() {
+		return id_request_parent;
+	}
+
+	public void setId_request_parent(Integer id_request_parent) {
+		this.id_request_parent = id_request_parent;
+	}
+
+	public Integer getId_type_notice() {
+		return id_type_notice;
+	}
+
+	public void setId_type_notice(Integer id_type_notice) {
+		this.id_type_notice = id_type_notice;
+	}
+
+	public Integer getId_sub_type_request() {
+		return id_sub_type_request;
+	}
+
+	public void setId_sub_type_request(Integer id_sub_type_request) {
+		this.id_sub_type_request = id_sub_type_request;
+	}
+	
+	public String getNumberRequestParent() {
+		return numberRequestParent;
+	}
+
+	public void setNumberRequestParent(String numberRequestParent) {
+		this.numberRequestParent = numberRequestParent;
+	}
+
+	public NoticeMotiveList getNoticeMotiveList() {
+		return noticeMotiveList;
+	}
+
+	public void setNoticeMotiveList(NoticeMotiveList noticeMotiveList) {
+		this.noticeMotiveList = noticeMotiveList;
+	}
+	
+	public NoticePendingList getNoticePendingList() {
+		return noticePendingList;
+	}
+
+	public void setNoticePendingList(NoticePendingList noticePendingList) {
+		this.noticePendingList = noticePendingList;
+	}
+
 	@Override
 	public String toString() {
 		return "ResponseRequestList [id_request=" + id_request + ", number_request=" + number_request
@@ -342,12 +396,15 @@ public class ResponseRequestList implements Serializable {
 				+ date_created + ", id_user_modificated=" + id_user_modificated + ", date_modificated="
 				+ date_modificated + ", payment_imput=" + payment_imput + ", payment_output=" + payment_output
 				+ ", name_delivery=" + name_delivery + ", id_delivery=" + id_delivery + ", date_delivery="
-				+ date_delivery + ", id_zone=" + id_zone + ", id_ordinance=" + id_ordinance + ", format_date_payment="
-				+ format_date_payment + ", format_date_notice_catastro=" + format_date_notice_catastro
-				+ ", requestOwnerList=" + requestOwnerList + ", requestRequisiteList=" + requestRequisiteList
-				+ ", requestAttachedList=" + requestAttachedList + ", responseRequestPaymentList="
-				+ responseRequestPaymentList + ", requestUpplementaryList=" + requestUpplementaryList
-				+ ", requestCommentList=" + requestCommentList + "]";
+				+ date_delivery + ", id_zone=" + id_zone + ", id_ordinance=" + id_ordinance + ", id_request_parent="
+				+ id_request_parent + ", id_type_notice=" + id_type_notice + ", id_sub_type_request="
+				+ id_sub_type_request + ", format_date_payment=" + format_date_payment
+				+ ", format_date_notice_catastro=" + format_date_notice_catastro + ", numberRequestParent="
+				+ numberRequestParent + ", requestOwnerList=" + requestOwnerList + ", requestRequisiteList="
+				+ requestRequisiteList + ", requestAttachedList=" + requestAttachedList
+				+ ", responseRequestPaymentList=" + responseRequestPaymentList + ", requestUpplementaryList="
+				+ requestUpplementaryList + ", requestCommentList=" + requestCommentList + ", noticeMotiveList="
+				+ noticeMotiveList + ", noticePendingList=" + noticePendingList + "]";
 	}
 
 	@JsonInclude(Include.NON_NULL)
@@ -778,5 +835,328 @@ public class ResponseRequestList implements Serializable {
 		
 	}
 	//
+	
+	@JsonInclude(Include.NON_NULL)
+	public static class NoticeMotiveList{
+		
+		public NoticeMotiveList(){
+			
+		}
+
+		private Integer id_request;
+		private Double area_accused;
+		private String name_zoning;
+		private String section_zoning;
+		private String number_gaceta_zoning;
+		private String date_gaceta_zoning;
+		private String format_date_gaceta_zoning;
+		private String description_parcel;
+		private Integer id_request_notice_motive;
+		private List<NoticeMotiveVariableList> requestVar;
+		
+		
+		public Integer getId_request() {
+			return id_request;
+		}
+		public void setId_request(Integer id_request) {
+			this.id_request = id_request;
+		}
+		public Double getArea_accused() {
+			return area_accused;
+		}
+		public void setArea_accused(Double area_accused) {
+			this.area_accused = area_accused;
+		}
+		public String getName_zoning() {
+			return name_zoning;
+		}
+		public void setName_zoning(String name_zoning) {
+			this.name_zoning = name_zoning;
+		}
+		public String getSection_zoning() {
+			return section_zoning;
+		}
+		public void setSection_zoning(String section_zoning) {
+			this.section_zoning = section_zoning;
+		}
+		public String getNumber_gaceta_zoning() {
+			return number_gaceta_zoning;
+		}
+		public void setNumber_gaceta_zoning(String number_gaceta_zoning) {
+			this.number_gaceta_zoning = number_gaceta_zoning;
+		}
+		public String getDate_gaceta_zoning() {
+			return date_gaceta_zoning;
+		}
+		public void setDate_gaceta_zoning(String date_gaceta_zoning) {
+			this.date_gaceta_zoning = date_gaceta_zoning;
+		}
+		public String getDescription_parcel() {
+			return description_parcel;
+		}
+		public void setDescription_parcel(String description_parcel) {
+			this.description_parcel = description_parcel;
+		}
+		public Integer getId_request_notice_motive() {
+			return id_request_notice_motive;
+		}
+		public void setId_request_notice_motive(Integer id_request_notice_motive) {
+			this.id_request_notice_motive = id_request_notice_motive;
+		}
+		
+		public List<NoticeMotiveVariableList> getRequestVar() {
+			return requestVar;
+		}
+		public void setRequestVar(List<NoticeMotiveVariableList> requestVar) {
+			this.requestVar = requestVar;
+		}
+		public String getFormat_date_gaceta_zoning() {
+			return format_date_gaceta_zoning;
+		}
+		public void setFormat_date_gaceta_zoning(String format_date_gaceta_zoning) {
+			this.format_date_gaceta_zoning = format_date_gaceta_zoning;
+		}
+		
+		@Override
+		public String toString() {
+			return "NoticeMotiveList [id_request=" + id_request + ", area_accused=" + area_accused + ", name_zoning="
+					+ name_zoning + ", section_zoning=" + section_zoning + ", number_gaceta_zoning="
+					+ number_gaceta_zoning + ", date_gaceta_zoning=" + date_gaceta_zoning
+					+ ", format_date_gaceta_zoning=" + format_date_gaceta_zoning + ", description_parcel="
+					+ description_parcel + ", id_request_notice_motive=" + id_request_notice_motive + ", requestVar="
+					+ requestVar + "]";
+		}
+		
+	}
+	
+	@JsonInclude(Include.NON_NULL)
+	public static class NoticeMotiveVariableList{
+		
+		public NoticeMotiveVariableList(){
+			
+		}
+
+		private Integer id_request_variable_numeral;
+		private Integer id_request_notice_motive;
+		private Integer id_variable_numeral;
+		private String comment_request_variable;
+		private String name_variable_regulation;
+		private String value_regulation;
+		private String value_presentee;
+		private String value_difference;
+		private Double percentage_regulation;
+		private Double percentage_presentee;
+		private Double percentage_difference;
+		private String conclusion_request_variable;
+		
+		public Integer getId_request_variable_numeral() {
+			return id_request_variable_numeral;
+		}
+		public void setId_request_variable_numeral(Integer id_request_variable_numeral) {
+			this.id_request_variable_numeral = id_request_variable_numeral;
+		}
+		public Integer getId_request_notice_motive() {
+			return id_request_notice_motive;
+		}
+		public void setId_request_notice_motive(Integer id_request_notice_motive) {
+			this.id_request_notice_motive = id_request_notice_motive;
+		}
+		public Integer getId_variable_numeral() {
+			return id_variable_numeral;
+		}
+		public void setId_variable_numeral(Integer id_variable_numeral) {
+			this.id_variable_numeral = id_variable_numeral;
+		}
+		public String getComment_request_variable() {
+			return comment_request_variable;
+		}
+		public void setComment_request_variable(String comment_request_variable) {
+			this.comment_request_variable = comment_request_variable;
+		}
+		public String getName_variable_regulation() {
+			return name_variable_regulation;
+		}
+		public void setName_variable_regulation(String name_variable_regulation) {
+			this.name_variable_regulation = name_variable_regulation;
+		}
+		public String getValue_regulation() {
+			return value_regulation;
+		}
+		public void setValue_regulation(String value_regulation) {
+			this.value_regulation = value_regulation;
+		}
+		public String getValue_presentee() {
+			return value_presentee;
+		}
+		public void setValue_presentee(String value_presentee) {
+			this.value_presentee = value_presentee;
+		}
+		public String getValue_difference() {
+			return value_difference;
+		}
+		public void setValue_difference(String value_difference) {
+			this.value_difference = value_difference;
+		}
+		public Double getPercentage_regulation() {
+			return percentage_regulation;
+		}
+		public void setPercentage_regulation(Double percentage_regulation) {
+			this.percentage_regulation = percentage_regulation;
+		}
+		public Double getPercentage_presentee() {
+			return percentage_presentee;
+		}
+		public void setPercentage_presentee(Double percentage_presentee) {
+			this.percentage_presentee = percentage_presentee;
+		}
+		public Double getPercentage_difference() {
+			return percentage_difference;
+		}
+		public void setPercentage_difference(Double percentage_difference) {
+			this.percentage_difference = percentage_difference;
+		}
+		public String getConclusion_request_variable() {
+			return conclusion_request_variable;
+		}
+		public void setConclusion_request_variable(String conclusion_request_variable) {
+			this.conclusion_request_variable = conclusion_request_variable;
+		}
+		
+		@Override
+		public String toString() {
+			return "NoticeMotiveVariableList [id_request_variable_numeral=" + id_request_variable_numeral
+					+ ", id_request_notice_motive=" + id_request_notice_motive + ", id_variable_numeral="
+					+ id_variable_numeral + ", comment_request_variable=" + comment_request_variable
+					+ ", name_variable_regulation=" + name_variable_regulation + ", value_regulation="
+					+ value_regulation + ", value_presentee=" + value_presentee + ", value_difference="
+					+ value_difference + ", percentage_regulation=" + percentage_regulation + ", percentage_presentee="
+					+ percentage_presentee + ", percentage_difference=" + percentage_difference
+					+ ", conclusion_request_variable=" + conclusion_request_variable + "]";
+		}
+		
+	}
+
+	@JsonInclude(Include.NON_NULL)
+	public static class NoticePendingList{
+		
+		public NoticePendingList(){
+			
+		}
+
+		private Integer id_request_notice_motive;
+		private Integer id_request;
+		private Double area_accused;
+		private String name_zoning;
+		private String description_plane;
+		private String notice_request_previous;
+		private String date_notice_request_previous;
+		private String format_date_notice_request_previous;
+		private List<NoticePendingObservationList> responseRequestObsePendList;
+		
+		
+		public Integer getId_request_notice_motive() {
+			return id_request_notice_motive;
+		}
+		public void setId_request_notice_motive(Integer id_request_notice_motive) {
+			this.id_request_notice_motive = id_request_notice_motive;
+		}
+		public Integer getId_request() {
+			return id_request;
+		}
+		public void setId_request(Integer id_request) {
+			this.id_request = id_request;
+		}
+		public Double getArea_accused() {
+			return area_accused;
+		}
+		public void setArea_accused(Double area_accused) {
+			this.area_accused = area_accused;
+		}
+		public String getName_zoning() {
+			return name_zoning;
+		}
+		public void setName_zoning(String name_zoning) {
+			this.name_zoning = name_zoning;
+		}
+		public String getDescription_plane() {
+			return description_plane;
+		}
+		public void setDescription_plane(String description_plane) {
+			this.description_plane = description_plane;
+		}
+		public String getNotice_request_previous() {
+			return notice_request_previous;
+		}
+		public void setNotice_request_previous(String notice_request_previous) {
+			this.notice_request_previous = notice_request_previous;
+		}
+		public String getDate_notice_request_previous() {
+			return date_notice_request_previous;
+		}
+		public void setDate_notice_request_previous(String date_notice_request_previous) {
+			this.date_notice_request_previous = date_notice_request_previous;
+		}		
+		public List<NoticePendingObservationList> getResponseRequestObsePendList() {
+			return responseRequestObsePendList;
+		}
+		public void setResponseRequestObsePendList(List<NoticePendingObservationList> responseRequestObsePendList) {
+			this.responseRequestObsePendList = responseRequestObsePendList;
+		}
+		public String getFormat_date_notice_request_previous() {
+			return format_date_notice_request_previous;
+		}
+		public void setFormat_date_notice_request_previous(String format_date_notice_request_previous) {
+			this.format_date_notice_request_previous = format_date_notice_request_previous;
+		}
+		
+		@Override
+		public String toString() {
+			return "NoticePendingList [id_request_notice_motive=" + id_request_notice_motive + ", id_request="
+					+ id_request + ", area_accused=" + area_accused + ", name_zoning=" + name_zoning
+					+ ", description_plane=" + description_plane + ", notice_request_previous="
+					+ notice_request_previous + ", date_notice_request_previous=" + date_notice_request_previous
+					+ ", format_date_notice_request_previous=" + format_date_notice_request_previous
+					+ ", responseRequestObsePendList=" + responseRequestObsePendList + "]";
+		}
+
+	}
+	
+	@JsonInclude(Include.NON_NULL)
+	public static class NoticePendingObservationList{
+		
+		public NoticePendingObservationList(){
+			
+		}
+
+		private Integer id_request_observation_pending;
+		private Integer id_request_notice_pending;
+		private String description_observation;
+		
+		public Integer getId_request_observation_pending() {
+			return id_request_observation_pending;
+		}
+		public void setId_request_observation_pending(Integer id_request_observation_pending) {
+			this.id_request_observation_pending = id_request_observation_pending;
+		}
+		public Integer getId_request_notice_pending() {
+			return id_request_notice_pending;
+		}
+		public void setId_request_notice_pending(Integer id_request_notice_pending) {
+			this.id_request_notice_pending = id_request_notice_pending;
+		}
+		public String getDescription_observation() {
+			return description_observation;
+		}
+		public void setDescription_observation(String description_observation) {
+			this.description_observation = description_observation;
+		}
+		@Override
+		public String toString() {
+			return "NoticePendingObservationList [id_request_observation_pending=" + id_request_observation_pending
+					+ ", id_request_notice_pending=" + id_request_notice_pending + ", description_observation="
+					+ description_observation + "]";
+		}
+		
+	}
 
 }

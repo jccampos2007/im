@@ -35,9 +35,6 @@ public class Vansat2Imp{
 	@Value("${END_POINT_PAYMENTMANAGEMENT}")
 	private String end_point_paymentManagement;
 	
-	@Value("${END_POINT_PRINTEREXCEL}")
-	private String end_point_printerExcel;
-	
 	@Value("${END_POINT_REQUESTOWNERDELETE}")
 	private String end_point_requestOwnerDelete;
 	

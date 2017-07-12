@@ -59,8 +59,8 @@ public class CommonImp implements ICommon{
 	@Value("${END_POINT_PAYMENTMANAGEMENT}")
 	private String end_point_paymentManagement;
 	
-	@Value("${END_POINT_PRINTEREXCEL}")
-	private String end_point_printerExcel;
+	@Value("${END_POINT_PRINTEREXCELVUE}")
+	private String end_point_printerExcelVUE;
 	
 	@Value("${END_POINT_REQUESTOWNERDELETE}")
 	private String end_point_requestOwnerDelete;
@@ -175,14 +175,18 @@ public class CommonImp implements ICommon{
 	}
 	
 	@Override
-	public printerExcelDTO printerExcel(Integer id_request) {
+	public printerExcelDTO printerExcel(Integer id_request, Integer id_type_request) {
 		
 		StringBuffer uri = new StringBuffer();
-		uri.append(host).append(end_point_printerExcel);
+		if (id_type_request == 2){
+			uri.append(host).append(end_point_printerExcelVUE);
+		}else if(id_type_request == 3){
+			uri.append(host).append(end_point_printerExcelVUE);
+		}
 		
 		Map<String, Integer> params = new HashMap<String, Integer>();
 		params.put("id_request", id_request);
-			
+		
 		logger.info("metodo:printerExcel"
 				+ "\nuri="+uri.toString()
 				+ "\nid_request="+id_request);
@@ -194,15 +198,15 @@ public class CommonImp implements ICommon{
 		headers.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
 		HttpEntity<String> entity = new HttpEntity<String>("parameters", headers);
 
-		printerExcelDTO ownerList = null;	
+		printerExcelDTO printResult = null;	
 		try{			
 			ResponseEntity<printerExcelDTO> response = restTemplate.exchange(uri.toString(), HttpMethod.GET, entity, printerExcelDTO.class, params);
-			ownerList = response.getBody();
+			printResult = response.getBody();
 		}catch(HttpClientErrorException e){
 			e.printStackTrace();
 		}
 				
-		return ownerList;
+		return printResult;
 	}
 	
 	@Override

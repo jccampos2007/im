@@ -310,7 +310,7 @@ $(document).ready(function(){
 					    	$('#divDelBanlance').hide();
 					    	
 					    	
-					    	var url = "/VUF/print/VUFR1/" + $('#inputDelIdRequest').val();
+					    	var url = "/VUF/print/" + $('#inputDelIdRequest').val();
 					    	
 							$.ajax({
 							   url: url,

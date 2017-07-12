@@ -237,6 +237,7 @@ public class RequestListForm {
 		private Double front_terrain;
 		private Integer id_request_upplementary;
 		private String number_notice_catastro;
+		private Integer id_type_notice;
 		
 		private List<String> id_owners;
 		private List<String> id_requisites;
@@ -477,6 +478,14 @@ public class RequestListForm {
 			this.number_notice_catastro = number_notice_catastro;
 		}
 
+		public Integer getId_type_notice() {
+			return id_type_notice;
+		}
+
+		public void setId_type_notice(Integer id_type_notice) {
+			this.id_type_notice = id_type_notice;
+		}
+
 		public List<String> getId_owners() {
 			return id_owners;
 		}
@@ -539,11 +548,13 @@ public class RequestListForm {
 					+ payment_output + ", area_terrain=" + area_terrain + ", area_usable=" + area_usable
 					+ ", date_notice_catastro=" + date_notice_catastro + ", front_terrain=" + front_terrain
 					+ ", id_request_upplementary=" + id_request_upplementary + ", number_notice_catastro="
-					+ number_notice_catastro + ", id_owners=" + id_owners + ", id_requisites=" + id_requisites
-					+ ", requestMngRequestOwner=" + requestMngRequestOwner + ", requestMngRequestRequisite="
-					+ requestMngRequestRequisite + ", responseRequestPaymentList=" + responseRequestPaymentList
-					+ ", mngRequestUpplementary=" + mngRequestUpplementary + "]";
+					+ number_notice_catastro + ", id_type_notice=" + id_type_notice + ", id_owners=" + id_owners
+					+ ", id_requisites=" + id_requisites + ", requestMngRequestOwner=" + requestMngRequestOwner
+					+ ", requestMngRequestRequisite=" + requestMngRequestRequisite + ", responseRequestPaymentList="
+					+ responseRequestPaymentList + ", mngRequestUpplementary=" + mngRequestUpplementary + "]";
 		}
+
+
 
 		@JsonInclude(Include.NON_NULL)
 		public static class VufAddRequestAttachedFrom{
@@ -1036,9 +1047,9 @@ public class RequestListForm {
 		private Double percentage_difference;
 		private Double percentage_presentee;
 		private Double percentage_regulation;
-		private Double value_difference;
-		private Double value_presentee;
-		private Double value_regulation;
+		private String value_difference;
+		private String value_presentee;
+		private String value_regulation;
 		
 		public String getComment_request_variable() {
 			return comment_request_variable;
@@ -1067,13 +1078,13 @@ public class RequestListForm {
 		public Double getPercentage_regulation() {
 			return percentage_regulation;
 		}
-		public Double getValue_difference() {
+		public String getValue_difference() {
 			return value_difference;
 		}
-		public Double getValue_presentee() {
+		public String getValue_presentee() {
 			return value_presentee;
 		}
-		public Double getValue_regulation() {
+		public String getValue_regulation() {
 			return value_regulation;
 		}
 		public void setComment_request_variable(String comment_request_variable) {
@@ -1103,13 +1114,13 @@ public class RequestListForm {
 		public void setPercentage_regulation(Double percentage_regulation) {
 			this.percentage_regulation = percentage_regulation;
 		}
-		public void setValue_difference(Double value_difference) {
+		public void setValue_difference(String value_difference) {
 			this.value_difference = value_difference;
 		}
-		public void setValue_presentee(Double value_presentee) {
+		public void setValue_presentee(String value_presentee) {
 			this.value_presentee = value_presentee;
 		}
-		public void setValue_regulation(Double value_regulation) {
+		public void setValue_regulation(String value_regulation) {
 			this.value_regulation = value_regulation;
 		}
 		

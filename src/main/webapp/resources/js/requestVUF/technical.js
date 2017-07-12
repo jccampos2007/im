@@ -455,7 +455,7 @@ $(document).ready(function(){
     
     $('#btnTecDownload').on('click', function() {
         
-    	var url = "/VUF/print/VUFR1/" + $('#inputTecIdRequest').val();
+    	var url = "/VUF/print/" + $('#inputTecIdRequest').val();
 	
 		$.ajax({
 		   url: url,

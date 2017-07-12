@@ -51,6 +51,8 @@ import ec.com.taxinet.webapp.form.model.RequestListForm.mngRequestNoticePending;
 import ec.com.taxinet.webapp.form.model.RequestListForm.mngRequestUpplementary;
 import ec.com.taxinet.webapp.datatable.DataTablesTO;
 import ec.com.taxinet.webapp.dto.CiudadanoSucreDTO;
+import ec.com.taxinet.webapp.dto.ResponseNoticeMotiveListDTO;
+import ec.com.taxinet.webapp.dto.ResponseNoticePendingListDTO;
 import ec.com.taxinet.webapp.dto.ownerManagementDTO;
 import ec.com.taxinet.webapp.dto.paymentManagementDTO;
 import ec.com.taxinet.webapp.dto.requestAttachedDTO;
@@ -463,32 +465,35 @@ public class requestController {
 		java.util.Date utilDate = null;
 		java.util.Date utilDate2 = null;
 		java.util.Date utilDate3 = null;
-		try {	
-			utilDate = new SimpleDateFormat("yyyy-MM-dd").parse(responseRequestListDTO.getResponseData().get(0).getDate_request());	
-			utilDate2 = new SimpleDateFormat("yyyy-MM-dd").parse(responseRequestListDTO.getResponseData().get(0).getResponseRequestPaymentList().get(0).getDate_payment());
-			
-			if (responseRequestListDTO.getResponseData().get(0).getRequestUpplementaryList().getDate_notice_catastro() != null){
-				utilDate3 = new SimpleDateFormat("yyyy-MM-dd").parse(responseRequestListDTO.getResponseData().get(0).getRequestUpplementaryList().getDate_notice_catastro());
-			}else{
-				utilDate3 = new SimpleDateFormat("yyyy-MM-dd").parse("2017-01-01");
-			}
-		} catch (ParseException e) {
-			//The handling for the code
-		}
-		responseRequestListDTO.getResponseData().get(0).setFormat_date_request(formatDate.format(utilDate));
-		responseRequestListDTO.getResponseData().get(0).setFormat_date_payment(formatDate.format(utilDate2));
-		responseRequestListDTO.getResponseData().get(0).setFormat_date_notice_catastro(formatDate.format(utilDate3));
-
-		for(int i=0; i< responseRequestListDTO.getResponseData().get(0).getResponseRequestPaymentList().size(); i++) {
-			
-			try {
-				utilDate = new SimpleDateFormat("yyyy-MM-dd").parse(responseRequestListDTO.getResponseData().get(0).getResponseRequestPaymentList().get(i).getDate_payment());			
+		if (!responseRequestListDTO.getResponseData().isEmpty()){
+			try {	
+				utilDate = new SimpleDateFormat("yyyy-MM-dd").parse(responseRequestListDTO.getResponseData().get(0).getDate_request());	
+				utilDate2 = new SimpleDateFormat("yyyy-MM-dd").parse(responseRequestListDTO.getResponseData().get(0).getResponseRequestPaymentList().get(0).getDate_payment());
+				
+				if (responseRequestListDTO.getResponseData().get(0).getRequestUpplementaryList().getDate_notice_catastro() != null){
+					utilDate3 = new SimpleDateFormat("yyyy-MM-dd").parse(responseRequestListDTO.getResponseData().get(0).getRequestUpplementaryList().getDate_notice_catastro());
+				}else{
+					utilDate3 = new SimpleDateFormat("yyyy-MM-dd").parse("2017-01-01");
+				}
+				
 			} catch (ParseException e) {
 				//The handling for the code
 			}
-			responseRequestListDTO.getResponseData().get(0).getResponseRequestPaymentList().get(i).setDate_payment(formatDate.format(utilDate));
-			
-        }
+			responseRequestListDTO.getResponseData().get(0).setFormat_date_request(formatDate.format(utilDate));
+			responseRequestListDTO.getResponseData().get(0).setFormat_date_payment(formatDate.format(utilDate2));
+			responseRequestListDTO.getResponseData().get(0).setFormat_date_notice_catastro(formatDate.format(utilDate3));
+	
+			for(int i=0; i< responseRequestListDTO.getResponseData().get(0).getResponseRequestPaymentList().size(); i++) {
+				
+				try {
+					utilDate = new SimpleDateFormat("yyyy-MM-dd").parse(responseRequestListDTO.getResponseData().get(0).getResponseRequestPaymentList().get(i).getDate_payment());			
+				} catch (ParseException e) {
+					//The handling for the code
+				}
+				responseRequestListDTO.getResponseData().get(0).getResponseRequestPaymentList().get(i).setDate_payment(formatDate.format(utilDate));
+				
+	        }
+		}
 		return responseRequestListDTO;
 	}
 	
@@ -510,6 +515,7 @@ public class requestController {
 		java.util.Date utilDate = null;
 		java.util.Date utilDate2 = null;
 		java.util.Date utilDate3 = null;
+		java.util.Date utilDate4 = null;
 		try {	
 			utilDate = new SimpleDateFormat("yyyy-MM-dd").parse(responseRequestListDTO.getResponseData().get(0).getDate_request());	
 			utilDate2 = new SimpleDateFormat("yyyy-MM-dd").parse(responseRequestListDTO.getResponseData().get(0).getResponseRequestPaymentList().get(0).getDate_payment());
@@ -536,6 +542,30 @@ public class requestController {
 			responseRequestListDTO.getResponseData().get(0).getResponseRequestPaymentList().get(i).setDate_payment(formatDate.format(utilDate));
 			
         }
+		//Solicitud de tramite VUF
+		ResponseRequestListDTO responseRequestParentDTO = requestVUF.listRequest(responseRequestListDTO.getResponseData().get(0).getId_request_parent(), "na", "na", 0,"na", "na", "na", 1, false);
+		responseRequestListDTO.getResponseData().get(0).setNumberRequestParent(responseRequestParentDTO.getResponseData().get(0).getNumber_request());
+		//Solicitud de tramite VUF
+		if(responseRequestListDTO.getResponseData().get(0).getId_type_notice() == 1){
+			ResponseNoticeMotiveListDTO responseNoticeMotiveListDTO = requestVUF.listNoticeMotive(id_request);
+			responseRequestListDTO.getResponseData().get(0).setNoticeMotiveList(responseNoticeMotiveListDTO.getResponseData());
+			try {
+				utilDate4 = new SimpleDateFormat("yyyy-MM-dd").parse(responseRequestListDTO.getResponseData().get(0).getNoticeMotiveList().getDate_gaceta_zoning());				
+			} catch (ParseException e) {
+				//The handling for the code
+			}
+			responseRequestListDTO.getResponseData().get(0).getNoticeMotiveList().setFormat_date_gaceta_zoning(formatDate.format(utilDate4));
+		}
+		else if(responseRequestListDTO.getResponseData().get(0).getId_type_notice() == 2){
+			ResponseNoticePendingListDTO responseNoticePendingListDTO = requestVUF.listNoticePending(id_request);
+			responseRequestListDTO.getResponseData().get(0).setNoticePendingList(responseNoticePendingListDTO.getResponseData());
+			try {
+				utilDate4 = new SimpleDateFormat("yyyy-MM-dd").parse(responseRequestListDTO.getResponseData().get(0).getNoticePendingList().getDate_notice_request_previous());
+			} catch (ParseException e) {
+				//The handling for the code
+			}
+			responseRequestListDTO.getResponseData().get(0).getNoticePendingList().setFormat_date_notice_request_previous(formatDate.format(utilDate4));
+		}
 		return responseRequestListDTO;
 	}
 
@@ -582,6 +612,22 @@ public class requestController {
 				+ "\n" + id_request_owner.toString());//id_request_owner
 		
 		deleteRequestOwnerDTO result = common.deleteRequestOwner(id_request_owner);
+		return result;
+	}
+	
+
+
+	/**
+	 * setDeleteVariableNumeral 
+	 */	
+	@RequestMapping(value = "/VUE/delete/deleteVariableNumeral/{id_request_variable_numeral}", method= RequestMethod.GET, produces = "application/json")
+	public @ResponseBody deleteRequestOwnerDTO setDeleteVariableNumeral(
+			@PathVariable Integer id_request_variable_numeral, 
+			Model model) {
+		logger.info("\n metodo: setDeleteRequestOwner "
+				+ "\n" + id_request_variable_numeral.toString());//id_request_owner
+		
+		deleteRequestOwnerDTO result = requestVUE.deleteVariableNumeral(id_request_variable_numeral);
 		return result;
 	}
 
@@ -681,7 +727,6 @@ public class requestController {
 			
 			listOwner.add(rowOwner);
 		}
-		
 		
 		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 		java.util.Date utilDate = null;
@@ -788,19 +833,20 @@ public class requestController {
 	 * @param id_request
 	 * @return
 	 */
-	@RequestMapping(value = "/printer/excel/{id_request}/{id_ordinance}/{typePrint}", method= RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/printer/excel/{id_request}/{id_ordinance}/{id_type_request}/{typePrint}", method= RequestMethod.GET, produces = "application/json")
 	public @ResponseBody ordinanceListDTO setPrinterExcel(
 			@PathVariable Integer id_request,
 			@PathVariable Integer id_ordinance,
+			@PathVariable Integer id_type_request,
 			@PathVariable String typePrint) {
 		
 		logger.info("\nsetPrinterExcel -> id_request = " + id_request
 				+ "\ntypePrint: " + typePrint);
 		if (typePrint.equals("created")){
-			common.printerExcel(id_request);
+			common.printerExcel(id_request, id_type_request);
 		}
 		//obtener el nombre del archivo
-        ordinanceListDTO ordinanceList = common.listOrdinance(0, id_ordinance, 1);
+        ordinanceListDTO ordinanceList = common.listOrdinance(0, id_ordinance, id_type_request);
         
 		return ordinanceList;
 		
@@ -886,15 +932,14 @@ public class requestController {
 	 * @throws JRException 
 	 */
 	
-	@RequestMapping(value = "/print/VUFR1/{id_request}/{id_type_request}/", method= RequestMethod.GET, produces = "application/json")
+	@RequestMapping(value = "/VUF/print/{id_request}/", method= RequestMethod.GET, produces = "application/json")
 	public @ResponseBody Boolean printVUF(
-			@PathVariable int id_request,
-			@PathVariable int id_type_request) throws SQLException {
+			@PathVariable int id_request) throws SQLException {
 		logger.info("\n printVUF ---->    /library/iReports/rptVUFPrincipal.jasper");//idServiceRecord
 		System.setProperty("java.awt.headless", "false");
 		
 		
-		ResponseRequestListDTO responseRequestListDTO = requestVUF.listRequest(id_request, "na", "na", 0,"na", "na", "na", id_type_request, true);
+		ResponseRequestListDTO responseRequestListDTO = requestVUF.listRequest(id_request, "na", "na", 0,"na", "na", "na", 1, true);
 		//obtener las lista de Objects Request
 		List<ResponseRequestList> requests  = responseRequestListDTO.getResponseData();
 		ResponseRequestList request = requests.get(0);		
@@ -903,7 +948,7 @@ public class requestController {
 		
 		while(iter.hasNext()){
 			RequestOwnerList owner = (RequestOwnerList)iter.next();
-			owners += owner.getName_owner() + " CI: " + owner.getOwner_id();
+			owners += owner.getName_owner() + " CI: " + owner.getOwner_id() + " ";
 		}		
 		
 		Map<String, Object> parameters = new HashMap<String, Object>();
@@ -949,6 +994,141 @@ public class requestController {
 		System.out.println("Done!");
 		return true;
 	}
+	
+	/**
+	 * printPDF 
+	 * @throws JRException 
+	 */
+	
+	@RequestMapping(value = "/VUE/print/noticePending/{id_request}/", method= RequestMethod.GET, produces = "application/json")
+	public @ResponseBody Boolean printNoticePendingVUE(
+			@PathVariable int id_request) throws SQLException {
+		
+		ResponseRequestListDTO responseRequestListDTO = requestVUF.listRequest(id_request, "na", "na", 0,"na", "na", "na", 2, true);
+		//obtener las lista de Objects Request
+		List<ResponseRequestList> requests  = responseRequestListDTO.getResponseData();
+		ResponseRequestList request = requests.get(0);		
+		Iterator<RequestOwnerList> iter = request.getRequestOwnerList().iterator();
+		String owners = "";
+		
+		while(iter.hasNext()){
+			RequestOwnerList owner = (RequestOwnerList)iter.next();
+			owners += owner.getName_owner() + " CI: " + owner.getOwner_id() + " ";
+		}		
+		
+		Map<String, Object> parameters = new HashMap<String, Object>();
+		parameters.put("p_id_request", id_request);
+		parameters.put("p_owners", owners);
+		parameters.put("p_print_when", false);
+		
+		logger.info("\n printVUF ---->    /library/iReports/reportNoticePendiente.jasper"
+				+"\nid_request = " + id_request 
+				+"\nowners = " + owners);//idServiceRecord
+
+        DBConection ccn = new DBConection();
+        Connection con;
+		try {
+			con = ccn.getDBConnectionEngineeringRequest();
+			
+			JasperPrint jasperPrint = JasperFillManager.fillReport(System.getProperty("jboss.server.data.dir") 
+					+ "/library/iReports/reportNoticePendiente.jasper", parameters,con);
+			/*JasperViewer jasperViewer = new	JasperViewer(jasperPrint);
+			jasperViewer.setVisible(true);*/
+			
+			File outDir = new File(System.getProperty("jboss.server.data.dir") + "/file_request/" + id_request + "/");
+			outDir.mkdirs();
+			
+			//SIN FIRMA
+			JasperExportManager.exportReportToPdfFile( jasperPrint, System.getProperty("jboss.server.data.dir") 
+					+ "/file_request/" + id_request + "/" + request.getNumber_request() + "NPVUETemp.pdf" );
+			
+			//CON FIRMA
+			parameters.put("p_print_when", true);
+			jasperPrint = JasperFillManager.fillReport(System.getProperty("jboss.server.data.dir") 
+					+ "/library/iReports/reportNoticePendiente.jasper", parameters,con);
+			JasperExportManager.exportReportToPdfFile( jasperPrint, System.getProperty("jboss.server.data.dir") 
+					+ "/file_request/" + id_request + "/" + request.getNumber_request() + "NPVUE.pdf" );
+			
+			con.close();
+			
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.println("Done!");
+		return true;
+	}
+	
+	/**
+	 * printPDF 
+	 * @throws JRException 
+	 */
+	
+	@RequestMapping(value = "/VUE/print/noticeMotive/{id_request}/", method= RequestMethod.GET, produces = "application/json")
+	public @ResponseBody Boolean printNoticeMotiveVUE(
+			@PathVariable int id_request) throws SQLException {
+		logger.info("\n printVUF ---->    /library/iReports/rptVUFPrincipal.jasper");//idServiceRecord
+		System.setProperty("java.awt.headless", "false");
+		
+		
+		ResponseRequestListDTO responseRequestListDTO = requestVUF.listRequest(id_request, "na", "na", 0,"na", "na", "na", 2, true);
+		//obtener las lista de Objects Request
+		List<ResponseRequestList> requests  = responseRequestListDTO.getResponseData();
+		ResponseRequestList request = requests.get(0);		
+		Iterator<RequestOwnerList> iter = request.getRequestOwnerList().iterator();
+		String owners = "";
+		
+		while(iter.hasNext()){
+			RequestOwnerList owner = (RequestOwnerList)iter.next();
+			owners += owner.getName_owner() + " CI: " + owner.getOwner_id() + " ";
+		}		
+		
+		Map<String, Object> parameters = new HashMap<String, Object>();
+		parameters.put("p_id_request", id_request);
+		parameters.put("p_owners", owners);
+		parameters.put("p_print_when", false);
+
+        DBConection ccn = new DBConection();
+        Connection con;
+		try {
+			con = ccn.getDBConnectionEngineeringRequest();
+			
+			JasperPrint jasperPrint = JasperFillManager.fillReport(System.getProperty("jboss.server.data.dir") 
+					+ "/library/iReports/report1NoticeMotive.jasper", parameters,con);
+			/*JasperViewer jasperViewer = new	JasperViewer(jasperPrint);
+			jasperViewer.setVisible(true);*/
+			
+			File outDir = new File(System.getProperty("jboss.server.data.dir") + "/file_request/" + id_request + "/");
+			outDir.mkdirs();
+			
+			//SIN FIRMA
+			JasperExportManager.exportReportToPdfFile( jasperPrint, System.getProperty("jboss.server.data.dir") 
+					+ "/file_request/" + id_request + "/" + request.getNumber_request() + "NMVUETemp.pdf" );
+			
+			//CON FIRMA
+			parameters.put("p_print_when", true);
+			jasperPrint = JasperFillManager.fillReport(System.getProperty("jboss.server.data.dir") 
+					+ "/library/iReports/report1NoticeMotive.jasper", parameters,con);
+			JasperExportManager.exportReportToPdfFile( jasperPrint, System.getProperty("jboss.server.data.dir") 
+					+ "/file_request/" + id_request + "/" + request.getNumber_request() + "NMVUE.pdf" );
+			
+			con.close();
+			
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.println("Done!");
+		return true;
+	}
 
 	/**
 	 * setRequestNoticeMotive 
@@ -958,7 +1138,18 @@ public class requestController {
 	public @ResponseBody requestNoticeMotiveManagementDTO setRequestNoticeMotive(@RequestBody mngRequestNoticeMotive mngRequestNoticeMotiveFrom, Model model, final RedirectAttributes redirectAttributes) {
 		logger.info("\n metodo: setProcessRequest "
 				+ "\n" + mngRequestNoticeMotiveFrom.toString());//idServiceRecord
-		
+
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		java.util.Date utilDate = null;
+		try {
+			utilDate = new SimpleDateFormat("dd/MM/yyyy").parse(mngRequestNoticeMotiveFrom.getDate_gaceta_zoning());
+		} catch (ParseException e) {
+			requestNoticeMotiveManagementDTO result = new requestNoticeMotiveManagementDTO();
+			result.setErrorCode(-3001);
+			result.setResponseMessage("Error Parse de Fecha de Solicitud");
+			return result;
+		}
+		mngRequestNoticeMotiveFrom.setDate_gaceta_zoning(dateFormat.format(utilDate));
 		requestNoticeMotiveManagementDTO result = requestVUE.requestNoticeMotiveManagement(mngRequestNoticeMotiveFrom);
 		return result;
 	}
@@ -972,6 +1163,17 @@ public class requestController {
 		logger.info("\n metodo: setProcessRequest "
 				+ "\n" + mngRequestNoticePendingFrom.toString());//idServiceRecord
 		
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+		java.util.Date utilDate = null;
+		try {
+			utilDate = new SimpleDateFormat("dd/MM/yyyy").parse(mngRequestNoticePendingFrom.getDate_notice_request_previous());
+		} catch (ParseException e) {
+			requestNoticePendingManagementDTO result = new requestNoticePendingManagementDTO();
+			result.setErrorCode(-3001);
+			result.setResponseMessage("Error Parse de Fecha de Solicitud");
+			return result;
+		}
+		mngRequestNoticePendingFrom.setDate_notice_request_previous(dateFormat.format(utilDate));
 		requestNoticePendingManagementDTO result = requestVUE.requestNoticePendingManagement(mngRequestNoticePendingFrom);
 		return result;
 	}
